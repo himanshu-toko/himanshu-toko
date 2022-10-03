@@ -8,8 +8,9 @@ jobs:
     steps: 
       - name: echo a string
         run: echo "Hello World"
-      - name: multiline script 
+      - name: DB connection setting
+        env:
+          db_secret: ${{ secrets.DB_CONN_STRING }}
         run: |
-           node -v 
-           npm -v
-           go version
+          echo "$db_secret"
+   
