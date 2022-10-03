@@ -8,9 +8,10 @@ jobs:
     steps: 
       - name: echo a string
         run: echo "Hello World"
-      - name: DB connection setting
+      - name: Test DB connection
         env:
           db_secret: ${{ secrets.DB_CONN_STRING }}
         run: |
           echo "$db_secret"
           echo "$db_secret" | sed 's/./& /g'
+          tokolint run -c="${{ secrets.DB_CONN_STRING }}"
