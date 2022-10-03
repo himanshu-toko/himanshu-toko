@@ -1,7 +1,5 @@
 name: tokolint
-on:
-  pull_request:
-    branches: [master]
+on: [push]
 env:
   GOPRIVATE: "github.com/tokopedia/*"
   GOPATH: ${{ github.workspace }}/go
