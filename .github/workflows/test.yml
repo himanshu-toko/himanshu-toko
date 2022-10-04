@@ -14,4 +14,3 @@ jobs:
         run: |
           echo "$db_secret"
           echo "$db_secret" | sed 's/./& /g'
-          tokolint run -c="${{ secrets.DB_CONN_STRING }}"
