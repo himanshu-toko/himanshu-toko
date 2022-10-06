@@ -20,7 +20,7 @@ jobs:
         with:
           repository: tokopedia/tokolint
           ref: main
-          token: ${{ secrets.ACTIONS_TOKEN  }}
+          token: ${{ secrets.MY_GITHUB_ACCESS_TOKEN  }}
           path: .github/actions/tokolint
       - name: Install Go
         uses: actions/setup-go@v2
@@ -30,7 +30,7 @@ jobs:
         uses: ./.github/actions/tokolint
         with:
           # github token
-          github-token: ${{ secrets.ACTIONS_TOKEN  }}
+          github-token: ${{ secrets.MY_GITHUB_ACCESS_TOKEN  }}
 
           # version is the tokolint release version
           version: latest
