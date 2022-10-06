@@ -1,5 +1,5 @@
 name: tokolint
-on: [push]
+on: push
 env:
   GOPRIVATE: "github.com/tokopedia/*"
   GOPATH: ${{ github.workspace }}/go
@@ -9,11 +9,18 @@ jobs:
     name: lint
     runs-on: [self-hosted, owner=cloud-platform, runnerset=default-runners, env=staging, opco=tokopedia]
     steps:
+      - name: Configure git for private modules
+        env:
+          TOKEN: ${{ secrets.MY_GITHUB_ACCESS_TOKEN  }}
+          USER_NAME: ${{ secrets.MY_GITHUB_USER_NAME }}
+        run: git config --global url."https://${USER_NAME}:${TOKEN}@github.com".insteadOf "https://github.com"
+      - uses: actions/checkout@v2
       - name: Checkout tokolint action
         uses: actions/checkout@v2
         with:
           repository: tokopedia/tokolint
           ref: main
+          token: ${{ secrets.ACTIONS_TOKEN  }}
           path: .github/actions/tokolint
       - name: Install Go
         uses: actions/setup-go@v2
@@ -36,9 +43,3 @@ jobs:
 
           # Optional: show only new issues if it's a pull request. The default value is `false`.
           only-new-issues: false
-      - name: Test DB connection
-        env:
-          db_secret: ${{ secrets.DB_CONN_STRING }}
-        run: |
-          echo "$db_secret"
-          echo "$db_secret" | sed 's/./& /g'
