@@ -7,7 +7,7 @@ env:
 jobs:
   golangci:
     name: lint
-    runs-on: [self-hosted, owner=cloud-platform, runnerset=default-runners, env=staging, opco=tokopedia]
+    runs-on: ubuntu-latest
     steps:
       - name: Configure git for private modules
         env:
